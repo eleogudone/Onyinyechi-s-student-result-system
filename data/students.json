@@ -6,12 +6,12 @@
         "gender": "F",
         "dob": "2008-05-21",
         "scores": {
-            "English": 60.0,
+            "English": 95.0,
             "Mathematics": 70.0,
             "Physics": 95.0,
             "Chemistry": 60.0,
             "Biology": 100.0
         },
-        "date_entered": "07-11-2026 16:42"
+        "date_entered": "07-11-2026 16:59"
     }
 ]
