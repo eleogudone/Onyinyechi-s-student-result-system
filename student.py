@@ -23,6 +23,21 @@ class Student:
     def __str__(self):
         return f"{self.student_id} | {self.name} | {self.class_name}"
 
+    def to_dict(self):
+        return{"student_id": self.student_id, "name": self.name, 
+           "class_name": self.class_name, "gender":self.gender,
+           "dob": self.dob, "scores": self.scores,
+           "date_entered": self.date_entered}
+    @classmethod
+    def from_dict(cls, data):
+        student =cls(data ["student_id"], data["name"], data["class_name"],
+                         data["gender"], data["dob"])
+        student.scores =data["scores"]
+        student.date_entered = data["date_entered"]
+        return student
+
+
+
 import re
 
 def is_valid_id(student_id):
