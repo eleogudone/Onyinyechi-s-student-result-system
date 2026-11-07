@@ -23,10 +23,10 @@ class Student:
     def __str__(self):
         return f"{self.student_id} | {self.name} | {self.class_name}"
 
-# import re
+import re
 
-# def is_valid_id(student_id):
-#     return bool(re.match(r"^STU\d{3,4}$", student_id))
+def is_valid_id(student_id):
+    return bool(re.match(r"^STU\d{3,4}$", student_id))
 
 # s = Student("STU001", "Ada Obi", "SS2", "F", "2008-05-21")
 # s.set_score("English", 80)
