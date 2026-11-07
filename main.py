@@ -1,4 +1,6 @@
 import storage
+import results
+import reports
 from student import Student, is_valid_id
 
 def ask(prompt, check, error_message):
@@ -76,6 +78,63 @@ def update_student(students):
     if class_name != "":
         student.class_name = class_name.upper()
     print("Student updated.")
+
+def ask_score(subject):
+    """Ask for a score until it is a valid number from 0 to 100."""
+    while True:
+        text = input(f"  {subject} score (0-100): ").strip()
+        try:
+            return results.validate_score(text)
+        except ValueError:
+            print("  Invalid. Enter a number from 0 to 100.")
+
+
+def record_scores(students):
+    student_id = input("\nEnter Student ID: ").strip().upper()
+    student = students.get(student_id)
+    if student is None:
+        print("Student not found.")
+        return
+
+    print(f"Enter scores for {student.name}:")
+    for subject in results.DEFAULT_SUBJECTS:
+        student.set_score(subject, ask_score(subject))
+
+    while input("Add another subject? (y/n): ").strip().lower() == "y":
+        subject = input("  Subject name: ").strip().title()
+        if subject != "":
+            student.set_score(subject, ask_score(subject))
+
+    print(f"Saved. Average {student.average():.2f}, Grade {student.grade()}.")
+
+
+def update_score(students):
+    student_id = input("\nEnter Student ID: ").strip().upper()
+    student = students.get(student_id)
+    if student is None:
+        print("Student not found.")
+        return
+    if not student.scores:
+        print("This student has no scores yet.")
+        return
+
+    print("Subjects:", ", ".join(student.scores))
+    subject = input("Subject to update: ").strip().title()
+    if subject not in student.scores:
+        print("Subject not found.")
+        return
+    student.set_score(subject, ask_score(subject))
+    print("Score updated.")
+
+
+def show_report_card(students):
+    student_id = input("\nEnter Student ID: ").strip().upper()
+    student = students.get(student_id)
+    if student is None:
+        print("Student not found.")
+        return
+    print("\n" + reports.report_card(student))
+
 def main():
     students = storage.load_students()
 
@@ -86,6 +145,9 @@ def main():
         print("3. Search student")
         print("4. Update student")
         print("5. Delete student")
+        print("6. Record scores")
+        print("7. Update a score")
+        print("8. Display report card")
         print("0. Save and exit")
         choice = input("Choose an option: ").strip()
 
@@ -99,6 +161,12 @@ def main():
             update_student(students)
         elif choice == "5":
             delete_student(students)
+        elif choice == "6":
+            record_scores(students)
+        elif choice == "7":
+            update_score(students)
+        elif choice == "8":
+            show_report_card(students)
         elif choice == "0":
             storage.save_students(students)
             print("Goodbye!")
@@ -110,3 +178,4 @@ def main():
 
 
 main()
+
