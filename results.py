@@ -17,5 +17,15 @@ def assign_grade(average):
     else:
         return "F"
 
+DEFAULT_SUBJECTS = ["English", "Mathematics", "Physics", "Chemistry", "Biology"]
+
+
+def validate_score(value):
+    """Turn text into a number between 0 and 100, or raise ValueError."""
+    score = float(value)
+    if score < 0 or score > 100:
+        raise ValueError("Score must be between 0 and 100.")
+    return score
+
 # test = {"English": 80, "Maths": 75, "Physics": 90, "Chem": 65, "Bio": 70}
 # print(calculate_total(test), calculate_average(test), assign_grade(calculate_average(test)))
