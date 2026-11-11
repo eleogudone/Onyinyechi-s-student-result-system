@@ -135,6 +135,29 @@ def show_report_card(students):
         return
     print("\n" + reports.report_card(student))
 
+def list_results(students):
+    if not students:
+        print("No students registered.")
+        return
+    choice = input("\nSort by (1) average high-to-low or (2) name: ").strip()
+    by = "name" if choice == "2" else "average"
+    ordered = reports.sort_students(list(students.values()), by)
+    print("\n" + reports.student_table(ordered))
+
+
+def show_statistics(students):
+    print("\n" + reports.statistics_text(list(students.values())))
+
+
+def export_report(students):
+    if not students:
+        print("Nothing to report.")
+        return
+    text = reports.full_report(list(students.values()))
+    path = reports.save_report(text)
+    if path:
+        print("Report saved to", path)
+
 def main():
     students = storage.load_students()
 
@@ -148,6 +171,9 @@ def main():
         print("6. Record scores")
         print("7. Update a score")
         print("8. Display report card")
+        print("9. List results (sorted)")
+        print("10. Class statistics")
+        print("11. Save report to file")
         print("0. Save and exit")
         choice = input("Choose an option: ").strip()
 
@@ -167,6 +193,12 @@ def main():
             update_score(students)
         elif choice == "8":
             show_report_card(students)
+        elif choice == "9":
+            list_results(students)
+        elif choice == "10":
+            show_statistics(students)
+        elif choice == "11":
+            export_report(students)
         elif choice == "0":
             storage.save_students(students)
             print("Goodbye!")
