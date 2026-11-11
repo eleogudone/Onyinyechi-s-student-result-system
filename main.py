@@ -1,7 +1,7 @@
 import storage
 import results
 import reports
-from student import Student, is_valid_id
+from student import Student, is_valid_id, is_valid_dob
 
 def ask(prompt, check, error_message):
     """"Keep asking until the answer passes the check."""
@@ -26,8 +26,8 @@ def add_student(students):
                      "Cannot be empty.").upper()
     gender = ask("Gender (M/F): ", lambda v: v.upper() in ("M", "F"),
                  "Enter M or F.").upper()
-    dob = ask("Date of birth (YYYY-MM-DD): ", lambda v: len(v) == 10,
-              "Use the format 2008-05-21.")
+    dob = ask("Date of birth (YYYY-MM-DD): ", is_valid_dob,
+              "Use a real past date like 2008-05-21.")
 
     students[student_id] = Student(student_id, name, class_name, gender, dob)
     print(f"Student {name} added.")
