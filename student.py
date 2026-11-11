@@ -10,9 +10,16 @@ class Student:
         self.dob = dob
         self.scores = {}
         self.date_entered = None
+    def is_valid_dob(text):
+        """Must be a real date in YYYY-MM-DD format and not in the future."""
+        try:
+            dob = datetime.strptime(text, "%Y-%m-%d")
+        except ValueError:
+            return False
+        return dob <= datetime.now()
     def set_score(self, subject, score):
         self.scores[subject] = score
-        self.date_entered = datetime.now().strftime("%d-%m-%Y %H:%M")
+        self.date_entered = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     def total(self):
         return results.calculate_total(self.scores)
