@@ -30,4 +30,4 @@ for a school.
 A: 70-100 | B: 60-69 | C: 50-59 | D: 40-49 | F: below 40
 
 ## Author
-Your Full Name - Matric No: ______ - Department: ______
+Your Full Name - Eleogu Onyinyechi Daisy Matric No: 24/sci01/076 - Department: Computing
